@@ -1,5 +1,5 @@
 import React from 'react'
-import { Routes,Route, BrowserRouter as Router, } from "react-router-dom";
+import { Routes,Route, BrowserRouter  } from "react-router-dom";
 import Home from './pages/Home';
 import Collection from './pages/Collection';
 import About from './pages/About';
@@ -15,7 +15,7 @@ const App = () => {
   return (
     <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
       <Navbar/>
-      <Router>
+       
       <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/collection' element={<Collection/>}/>
@@ -27,7 +27,7 @@ const App = () => {
           <Route path='/order' element={<Order/>}/>
           <Route path='/contact' element={<Contact/>}/>
       </Routes>
-      </Router>
+       
     </div>
   )
 }

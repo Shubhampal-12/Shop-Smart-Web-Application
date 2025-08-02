@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../src/index.css";
 import { assets } from "../assets/admin_assets/assets";
-import { Search, ShoppingCart, UserRound } from "lucide-react";
+import {
+  AlignCenter,
+  ChevronLeft,
+  Search,
+  ShoppingCart,
+  UserRound,
+} from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
+  const [visible, setVisible] = useState(false);
   return (
     <div className="flex items-center justify-between py-5 font-medium">
-      <img src={assets.logo} className="w-36" alt="" />
+      <NavLink to='/'>
+        <img src={assets.logo} className=" w-[9rem]" alt="" />
+      </NavLink>
 
       <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
         <li>
@@ -16,11 +25,12 @@ const Navbar = () => {
             <hr className="w-2/4  border-none h-[1.5px] bg-gray-700 hidden " />
           </NavLink>
         </li>
-        
+
         <li>
           <NavLink
             to="/collection"
-            className=" flex flex-col gap-1 items-center">
+            className=" flex flex-col gap-1 items-center"
+          >
             <p>COLLECTION</p>
             <hr className="w-2/4  border-none h-[1.5px] bg-gray-700 hidden" />
           </NavLink>
@@ -35,16 +45,81 @@ const Navbar = () => {
 
         <li>
           <NavLink to="contact" className=" flex flex-col gap-1 items-center">
-            <p>CONT</p>ACT
+            <p>CONTACT</p>
             <hr className="w-2/4  border-none h-[1.5px] bg-gray-700 hidden" />
           </NavLink>
         </li>
       </ul>
 
       <div className=" flex gap-5">
-        <Search color="black" />
-        <UserRound color="black" />
-        <ShoppingCart color="black" />
+        <Search color="black" className="cursor-pointer" />
+        <div className="group relative">
+          <UserRound color="black" className=" cursor-pointer" />
+          <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
+            <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 rounded text-gray-500">
+              <p className="cursor-pointer hover:text-black">My Profile</p>
+              <p className="cursor-pointer hover:text-black">Order</p>
+              <p className="cursor-pointer hover:text-black">LogOut</p>
+            </div>
+          </div>
+        </div>
+
+        <NavLink to="/cart" className="relative">
+          <ShoppingCart color="black" />
+          <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]">
+            12
+          </p>
+        </NavLink>
+        <AlignCenter
+          onClick={() => setVisible(true)}
+          color="black"
+          className="cursor-pointer w-5 sm:hidden   "
+        />
+      </div>
+
+      {/* Sidebar menu for smal screens */}
+      <div
+        className={`absolute top-0 right-0 bottom-0 overflow-hidden bg-white transition-all ${
+          visible ? "w-full" : "w-0"
+        }`}
+      >
+        <div className="flex flex-col text-gray-600">
+          <div
+            onClick={() => setVisible(false)}
+            className="flex items-center gap-1  p-5 cursor-pointer"
+          >
+            <ChevronLeft color="black" className="items-center" />
+            <p>Back</p>
+          </div>
+          <NavLink
+            onClick={() => setVisible(false)}
+            className="py-2 pl-6 border"
+            to="/"
+          >
+            Home
+          </NavLink>
+          <NavLink
+            onClick={() => setVisible(false)}
+            className="py-2 pl-6 border"
+            to="/collection"
+          >
+            COLLECTION
+          </NavLink>
+          <NavLink
+            onClick={() => setVisible(false)}
+            className="py-2 pl-6 border"
+            to="/about"
+          >
+            ABOUT
+          </NavLink>
+          <NavLink
+            onClick={() => setVisible(false)}
+            className="py-2 pl-6 border"
+            to="/contact"
+          >
+            CONTACT
+          </NavLink>
+        </div>
       </div>
     </div>
   );

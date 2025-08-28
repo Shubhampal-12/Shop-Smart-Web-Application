@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "../../src/index.css";
 import { assets } from "../assets/admin_assets/assets";
 import {
@@ -9,9 +9,12 @@ import {
   UserRound,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { ShopContext } from "../context/ShopContext";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [visible, setVisible] = useState(false);
+  const {setShowSearch, getCartCount} = useContext(ShopContext)
   return (
     <div className="flex items-center justify-between py-5 font-medium">
       <NavLink to='/'>
@@ -52,9 +55,9 @@ const Navbar = () => {
       </ul>
 
       <div className=" flex gap-5">
-        <Search color="black" className="cursor-pointer" />
+        <Search onClick={()=>setShowSearch(true)} color="black" className="cursor-pointer" />
         <div className="group relative">
-          <UserRound color="black" className=" cursor-pointer" />
+         <Link to='/login'><UserRound color="black" className=" cursor-pointer" /></Link>
           <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
             <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 rounded text-gray-500">
               <p className="cursor-pointer hover:text-black">My Profile</p>
@@ -65,9 +68,9 @@ const Navbar = () => {
         </div>
 
         <NavLink to="/cart" className="relative">
-          <ShoppingCart color="black" />
+          <ShoppingCart  color="black" />
           <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]">
-            12
+            {getCartCount()}
           </p>
         </NavLink>
         <AlignCenter

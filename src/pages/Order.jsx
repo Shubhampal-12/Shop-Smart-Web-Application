@@ -5,7 +5,7 @@ import Tittle from '../components/Tittle'
 const Order = () => {
   const {products, currency}= useContext(ShopContext)
   return (
-    <div className='border-t pt-16'>
+    <div className='border-t pt-16 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
       <div className="text-2xl">
         <Tittle text1={'MY'} text2={'ORDERS'}/>
       </div>

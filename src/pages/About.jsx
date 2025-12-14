@@ -5,7 +5,7 @@ import NewLetterbox from '../components/NewLetterbox'
 
 const About = () => {
   return (
-    <div>
+    <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
       <div className="text-2xl text-center pt-8 border-t">
         <Tittle text1={"ABOUT"} text2={"US"} />
       </div>

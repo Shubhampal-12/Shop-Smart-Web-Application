@@ -4,16 +4,17 @@ import LatestCollection from "../components/LatestCollection";
 import BestSeller from "../components/BestSeller";
 import OurPolicy from "../components/OurPolicy";
 import NewLetterbox from "../components/NewLetterbox";
- 
+import Heropage from "../components/Heropage";
 
 const Home = () => {
   return (
     <>
-      <Hero />
+      <Heropage />
+      {/* <Hero /> */}
       <LatestCollection />
-      <BestSeller/>
-      <OurPolicy/>
-      <NewLetterbox/>
+      <BestSeller />
+      <OurPolicy />
+      <NewLetterbox />
     </>
   );
 };

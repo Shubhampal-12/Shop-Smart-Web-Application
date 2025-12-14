@@ -54,6 +54,12 @@ import p_img50 from './p_img50.png'
 import p_img51 from './p_img51.png'
 import p_img52 from './p_img52.png'
 
+import tend1 from './tend2.jpg'
+import tend2 from './tend3.jpg'
+import tend3 from './tend4.jpg'
+import tend4 from './tend5.jpg'
+
+
 
 import logo from './logo.png'
 import hero_img from './hero_img.png'
@@ -92,7 +98,11 @@ export const assets = {
     contact_img,
     razorpay_logo,
     stripe_logo,
-    cross_icon
+    cross_icon,
+    tend1,
+    tend2,
+    tend3,
+    tend4,
 }
 
 export const products = [

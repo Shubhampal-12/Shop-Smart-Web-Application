@@ -7,7 +7,7 @@ const NewLetterbox = () => {
   }
 
   return (
-    <div className='text-center'>
+    <div className='text-center px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
         <p className='text-2xl font-medium text-gray-800'>Subscribe now & get 20% off</p>
         <p className="text-gray-400 mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, molestiae?</p>
 

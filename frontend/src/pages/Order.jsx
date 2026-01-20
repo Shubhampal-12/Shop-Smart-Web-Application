@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
-import Tittle from "../components/Tittle";
+import Title from "../components/Tittle";
 import axios from "axios";
 
 const Orders = () => {
@@ -32,18 +32,19 @@ const Orders = () => {
         setOrderData(allOrderItems.reverse());
       }
     } catch (error) {
-      console.log("Error fetching orders:", error);
+      console.log(error);
     }
   };
+ 
 
   useEffect(() => {
     loadOrderData();
   }, [token]);
 
   return (
-    <div className="border-t pt-16">
+    <div className="border-t pt-16 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
       <div className="text-2xl">
-        <Tittle text1={"MY"} text2={"ORDERS"} />
+        <Title text1={"MY"} text2={"ORDERS"} />
       </div>
       <div>
         {orderData.slice(1, 4).map((item, index) => (

@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+a.active hr{
+    display:block;
+}
+*{
+    font-family: Outfit;
+}
+::-webkit-scrollbar{
+    display: none;
+}
+.prata-regular {
+  font-family: "Prata", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+@media (max-width:640px) {
+    a.active{
+        background-color: black;
+        color: white;
+    }
+}
+
+/* small custom css overrides */
+html, body, #root {
+  height: 100%;
+}
+body {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: white;
+}
+ 
+/* ensure marquee text doesn't wrap */
+.marquee-text {
+  white-space: nowrap;
+}
+
+/* cursors (size) */
+.cursor {
+  width: 40px;
+  height: 40px;
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* marquee: move left continuously */
+.marquee {
+  display: inline-block;
+  animation: marquee-left 12s linear infinite;
+}
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ensure marquee repeats smoothly: duplicate string length in markup */
+.marquee span { 
+  display: inline-block;
+}
+
+.marquee {
+    
+  animation: marquee-left 18s linear infinite;
+}
+
+@keyframes marquee-left {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+
+/* Add colour  property no */
+
+/* background layer container (base color) */
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: #ffffff; /* default */
+  overflow: hidden;
+}
+
+/* wipe layer that moves bottom->top */
+.bg-wipe {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  transform: translateX(200%); /* starts hidden at bottom */
+  transform: translateY(200%); /* starts hidden at bottom */
+  will-change: transform, background;
+}
+
+/* small helpers */
+.main-wrapper {
+  position: relative;
+  min-height: 0.1rem;
+  overflow: hidden;
+}
+
+/* make marquee text not selectable */
+.marquee-text {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+/* optional: smoother image transitions */
+.hero-image {
+  transition: transform 0.7s ease, opacity 0.7s ease;
+}
+
+.marquee-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(100%);
+}
+
+.t-1.marquee-wrapper {
+  clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+}
+
+

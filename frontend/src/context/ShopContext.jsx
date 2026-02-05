@@ -22,31 +22,39 @@ const ShopContextProvider = ({ children }) => {
   const navigate = useNavigate();
 
   /* ---------------- ADD TO CART ---------------- */
-  const addToCart = async (itemId, size) => {
-    if (!size) {
-      toast.error("Select Product Size");
-      return;
+ const addToCart = async (itemId, size) => {
+  if (!size) {
+    toast.error("Select Product Size");
+    return;
+  }
+
+  // ✅ Safe clone (works everywhere)
+  const cartData = JSON.parse(JSON.stringify(cartItems || {}));
+
+  // ✅ Ensure product object exists
+  if (!cartData[itemId]) {
+    cartData[itemId] = {};
+  }
+
+  // ✅ Increase quantity safely
+  cartData[itemId][size] = (cartData[itemId][size] || 0) + 1;
+
+  setCartItems(cartData);
+
+  // ✅ Sync with backend if logged in
+  if (token) {
+    try {
+      await axios.post(
+        `${backendUrl}/api/cart/add`,
+        { itemId, size },
+        { headers: { token } }
+      );
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Cart error");
     }
+  }
+};
 
-    const cartData = structuredClone(cartItems);
-
-    if (!cartData[itemId]) cartData[itemId] = {};
-    cartData[itemId][size] = (cartData[itemId][size] || 0) + 1;
-
-    setCartItems(cartData);
-
-    if (token) {
-      try {
-        await axios.post(
-          `${backendUrl}/api/cart/add`,
-          { itemId, size },
-          { headers: { token } }
-        );
-      } catch (error) {
-        toast.error(error.response?.data?.message || "Cart error");
-      }
-    }
-  };
 
   /* ---------------- CART COUNT ---------------- */
   const getCartCount = () => {

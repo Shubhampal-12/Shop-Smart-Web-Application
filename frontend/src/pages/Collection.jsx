@@ -63,8 +63,7 @@ const Collection = () => {
     applyFilter();
   }, [category, subcategory, search, showSearch, products])
 
-  console.log(products)
-  console.log(ProductItem.image)
+ 
   
   useEffect(()=>{
     sortProduct();

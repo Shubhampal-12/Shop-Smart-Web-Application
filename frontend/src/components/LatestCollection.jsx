@@ -10,6 +10,7 @@ const LatestCollection = () => {
   useEffect(() => {
     setLatestProducts(products.slice(0, 10));
   }, [products]); // Ensure that you re-fetch products if they change
+  
 
   return (
     <div className='my-10 px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>

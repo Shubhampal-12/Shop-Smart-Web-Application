@@ -15,7 +15,7 @@ const Orders = () => {
         return null
       }
       const response = await axios.post(backendUrl + '/api/order/userOrders', {}, {headers: {token}})
-      console.log(response.data);
+ 
       if(response.data.success){
         let allOrderItems = []
         response.data.orders.map((order)=>{
@@ -35,7 +35,7 @@ const Orders = () => {
 console.log(error)
     }
   }
-  console.log(orderData);
+
   
   useEffect(()=>{
     loadOrderData()

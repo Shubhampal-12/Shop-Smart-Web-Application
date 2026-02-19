@@ -11,7 +11,7 @@ const ShopContextProvider = ({ children }) => {
   const currency = "$";
   const delivery_fee = 10;
 
-  console.log("Backend URL:", backendUrl);
+  // console.log("Backend URL:", backendUrl);
 
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
@@ -103,11 +103,11 @@ const ShopContextProvider = ({ children }) => {
       const product = products.find((p) => p._id === itemId);
       if (!product) continue;
       
-      console.log(product)
+   
       for (const size in cartItems[itemId]) {
         total += product.price * cartItems[itemId][size];
       }
-      console.log(product)
+     
     }
     return total;
   };
@@ -123,6 +123,7 @@ const ShopContextProvider = ({ children }) => {
       toast.error("Failed to load products");
     }
   };
+
 
   /* ---------------- GET USER CART ---------------- */
   const getUserCart = async (userToken) => {

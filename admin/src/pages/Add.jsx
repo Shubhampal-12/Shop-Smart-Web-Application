@@ -47,7 +47,7 @@ const Add = ({ token }) => {
       { headers: { token } }
     );
 
-    console.log("RESPONSE:", response.data);
+    // console.log("RESPONSE:", response.data);
 
     if (response?.data?.success) {
       toast.success(response.data.message);

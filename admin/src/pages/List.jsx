@@ -26,7 +26,7 @@ const List = () => {
     fetchList()
   }, [])
 
-  console.log("Fetched Products:", list) 
+  // console.log("Fetched Products:", list) 
 
   const removeProduct = async (id) => {
     try {

@@ -81,4 +81,32 @@ const adminLogin = async (req, res) => {
     }
 }
 
-export { loginUser, registerUser, adminLogin };
+// user profile
+
+const getUserProfile = async (req, res) => {
+
+  try {
+
+    const token = req.headers.token;
+
+    if (!token) {
+      return res.json({ success: false, message: "Not Authorized" });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const user = await userModel.findById(decoded.id).select("-password");
+
+    res.json({
+      success: true,
+      user
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+
+};
+
+export { loginUser, registerUser, adminLogin,getUserProfile };

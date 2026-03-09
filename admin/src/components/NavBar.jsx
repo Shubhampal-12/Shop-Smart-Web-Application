@@ -4,7 +4,7 @@ import { assets } from '../assets/assets'
 const NavBar = ({ setToken }) => {
   return (
     <div className='flex items-center py-2 px-[4%] justify-between'>
-      <img className='w-[max(10%,80px)]' src={assets.logo} alt="" />
+      <img className='w-[120px] h-[100px] bg-white ' src={assets.logo} alt="" />
 
       <button
         onClick={() => {

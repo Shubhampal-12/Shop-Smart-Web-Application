@@ -12,8 +12,12 @@ import Collection from './pages/Collection';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import SearchBar from './components/SearchBar';
+import Verify from './pages/Verify'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import TrackOrder from './pages/TrackOrder';
+import Profile from './pages/Profile';
+
 
 
 const App = () => {
@@ -35,9 +39,13 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/product/:productId" element={<Product />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path="/verify" element={<Verify/>} />
+        <Route path="/track-order/:id" element={<TrackOrder />} />
+
       </Routes>
       <Footer/>
     </div>

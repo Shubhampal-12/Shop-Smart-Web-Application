@@ -11,7 +11,6 @@ const Orders = () => {
   const navigate = useNavigate();
 
   const loadOrderData = async () => {
-    console.log("track");
     try {
       if (!token) {
         return null;
@@ -21,7 +20,6 @@ const Orders = () => {
         {},
         { headers: { token } },
       );
-      console.log(response.data);
 
       if (response.data.success) {
         let allOrderItems = [];

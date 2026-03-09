@@ -37,7 +37,6 @@ const Login = () => {
     } else {
       toast.error(response?.data?.message || "Authentication failed");
     }
-    console.log(response)
 
   } catch (error) {
     console.log("LOGIN ERROR:", error);

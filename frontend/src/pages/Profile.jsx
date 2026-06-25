@@ -5,13 +5,14 @@ import axios from "axios";
 const Profile = () => {
   const { navigate, setCartItems, setToken, backendUrl, token } =
     useContext(ShopContext);
+  const [edit, setEdit] = useState(false);
 
   const [info, setInfo] = useState({
     name: "",
     surname: "",
     email: "",
     phone: "",
-    gender: "female",
+    gender: "",
   });
 
   const logout = () => {
@@ -19,6 +20,25 @@ const Profile = () => {
     setToken(null);
     setCartItems({});
     navigate("/login");
+  };
+
+  //update informetion
+
+  const updateProfile = async () => {
+    try {
+      const response = await axios.post(
+        backendUrl + "/api/user/update-profile",
+        info,
+        { headers: { token } },
+      );
+
+      if (response.data.success) {
+        setEdit(false);
+        alert("Profile Updated");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // FETCH PROFILE DATA
@@ -30,7 +50,7 @@ const Profile = () => {
         { headers: { token } },
       );
 
-      if (response.data.success) {
+      if (response.data.success && response.data.user) {
         setInfo(response.data.user);
       }
     } catch (error) {
@@ -39,12 +59,18 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    fetchInfo();
     const storedToken = localStorage.getItem("token");
+
     if (storedToken) {
       setToken(storedToken);
     }
   }, []);
+
+  useEffect(() => {
+    if (token) {
+      fetchInfo();
+    }
+  }, [token]);
 
   return (
     <div className="bg-gray-100 min-h-screen p-6">
@@ -57,6 +83,7 @@ const Profile = () => {
               className="w-12"
               alt=""
             />
+
             <div>
               <p className="text-gray-500 text-sm">Hello,</p>
               <p className="font-semibold">
@@ -66,7 +93,10 @@ const Profile = () => {
           </div>
 
           <div className="bg-white mt-4 shadow">
-            <div onClick={'/orders'} className="border-b p-4 font-semibold text-gray-700">
+            <div
+              onClick={() => navigate("/orders")}
+              className="border-b p-4 font-semibold text-gray-700 cursor-pointer"
+            >
               MY ORDERS
             </div>
 
@@ -113,29 +143,49 @@ const Profile = () => {
           <div className="flex gap-6 mb-6">
             <input
               type="text"
-              value={info.name}
+              value={info.name || ""}
+              onChange={(e) => setInfo({ ...info, name: e.target.value })}
               className="border p-2 w-1/2"
-              readOnly
+              readOnly={!edit}
             />
 
             <input
               type="text"
-              value={info.surname}
+              value={info.surname || ""}
+              onChange={(e) => setInfo({ ...info, surname: e.target.value })}
               className="border p-2 w-1/2"
+              readOnly={!edit}
             />
           </div>
 
           {/* GENDER */}
           <div className="mb-5">
             <p className="mb-2">Your Gender</p>
+            <input
+              type="radio"
+              checked={info.gender === "other"}
+              onChange={() => setInfo({ ...info, gender: "other" })}
+              disabled={!edit}
+            />{" "}
+            Other
 
-            <label className="mr-6">
-              <input type="radio" /> Male
-            </label>
+            <input
+              type="radio"
+              checked={info.gender === "male"}
+              onChange={() => setInfo({ ...info, gender: "male" })}
+              disabled={!edit}
+            />{" "}
 
-            <label>
-              <input type="radio" /> Female
-            </label>
+            Male
+
+            <input
+              type="radio"
+              checked={info.gender === "female"}
+              onChange={() => setInfo({ ...info, gender: "female" })}
+              disabled={!edit}
+            />{" "}
+            Female
+
           </div>
 
           {/* EMAIL */}
@@ -144,9 +194,10 @@ const Profile = () => {
 
             <input
               type="email"
-              value={info.email}
+              value={info?.email || ""}
+              onChange={(e) => setInfo({ ...info, email: e.target.value })}
               className="border p-2 w-1/2"
-              readOnly
+              readOnly={!edit}
             />
           </div>
 
@@ -154,7 +205,24 @@ const Profile = () => {
           <div>
             <p className="font-semibold mb-2">Mobile Number</p>
 
-            <input type="text" className="border p-2 w-1/2" />
+            <input
+              type="text"
+              value={info.phone || ""}
+              onChange={(e) => setInfo({ ...info, phone: e.target.value })}
+              className="border p-2 w-1/2"
+              readOnly={!edit}
+            />
+          </div>
+          <div className="flex flex- mt-6 ml-5 sm:flex-row gap-12">
+            {!edit ? (
+              <button onClick={() => setEdit(true)} className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700">
+                Edit
+              </button>
+            ) : (
+              <button onClick={updateProfile} className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700">
+                Save
+              </button>
+            )}
           </div>
         </div>
       </div>

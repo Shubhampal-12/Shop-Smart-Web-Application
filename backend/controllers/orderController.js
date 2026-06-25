@@ -1,6 +1,7 @@
 // import { useId } from "react";
 import orderModel from "../models/orderModel.js";
 // import currency from "../../admin/src/App.jsx";
+import { sendWhatsappMessage } from "../utils/sendWhatsapp.js";
 import userModel from "../models/userModel.js";
 import Stripe from "stripe";
 import razorpay from "razorpay";
@@ -204,6 +205,40 @@ const updateStatus = async (req, res) => {
   }
 };
 
+// Add whatsapp Number for Message 
+
+const MessageOrder = async (req, res) => {
+
+  try {
+
+    const { userPhone, items, paymentMethod } = req.body;
+
+    const order = {
+      name: items[0].name,
+      price: items[0].price,
+      paymentMethod
+    };
+
+    // send whatsapp message
+    await sendWhatsappMessage(userPhone, order);
+
+    res.json({
+      success: true,
+      message: "Order placed successfully"
+    });
+
+    console.log("Sending WhatsApp message...");
+  } catch (error) {
+    res.json({
+      success: false,
+      message: error.message
+      
+    });
+
+  }
+
+};
+
 export {
   verifyRazorpay,
   verifyStripe,
@@ -213,4 +248,5 @@ export {
   allOrders,
   updateStatus,
   userOrders,
+  MessageOrder
 };

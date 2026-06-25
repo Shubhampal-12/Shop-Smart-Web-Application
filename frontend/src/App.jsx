@@ -17,6 +17,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TrackOrder from './pages/TrackOrder';
 import Profile from './pages/Profile';
+import ChatBot from './components/ChatBot';
 
 
 
@@ -45,8 +46,8 @@ const App = () => {
         <Route path="/orders" element={<Orders />} />
         <Route path="/verify" element={<Verify/>} />
         <Route path="/track-order/:id" element={<TrackOrder />} />
-
       </Routes>
+      {/* <ChatBot/> */}
       <Footer/>
     </div>
   );

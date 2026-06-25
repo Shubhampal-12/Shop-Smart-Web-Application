@@ -1,5 +1,5 @@
 import express from 'express'
-import { placeOrder, placeOrderRazorpay, placeOrderStripe, updateStatus, allOrders, userOrders, verifyStripe, verifyRazorpay } from '../controllers/orderController.js'
+import { placeOrder, placeOrderRazorpay, placeOrderStripe, updateStatus, allOrders, userOrders, verifyStripe, verifyRazorpay, MessageOrder } from '../controllers/orderController.js'
 import adminAuth from '../middleware/adminAuth.js'
 import authUser from '../middleware/auth.js'
 
@@ -16,6 +16,9 @@ orderRouter.post('/razorpay', authUser, placeOrderRazorpay)
 
 // User features
 orderRouter.post('/userorders', authUser, userOrders)
+
+//Add Whatsapp 
+orderRouter.post('/MessageOrder', authUser, MessageOrder)
 
 //verify feature
 orderRouter.post('/verifyStripe',authUser,verifyStripe)

@@ -3,11 +3,11 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    surname: {type: String},
+    surname: {type: String,require:true},
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    phone: { type: String },
-    gender: { type: String, default: "male" },
+    phone: { type: Number, require:true },
+    gender: { type: String, },
     cartData: { type: Object, default: {} },
   },
   { minimize: false },

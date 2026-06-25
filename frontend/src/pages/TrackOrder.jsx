@@ -35,8 +35,10 @@ const TrackOrder = () => {
   };
 
   useEffect(() => {
+  if (token) {
     fetchOrder();
-  }, []);
+  }
+}, [token, id]);
 
   const statusIndex = steps.findIndex((step) => step === order?.status);
 
@@ -48,7 +50,7 @@ const TrackOrder = () => {
         <div>
           {/* Product Info */}
 
-          {order.items.map((item, index) => (
+          {order?.items?.map((item, index) => (
             <div
               key={index}
               className="flex items-center gap-6 mb-10 border p-4 rounded"

@@ -1,16 +1,38 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { ShopContext } from '../context/ShopContext';
-import { assets } from '../assets/assets';
-import RelatedProducts from '../components/RelatedProducts';
+import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { ShopContext } from "../context/ShopContext";
+import { assets } from "../assets/assets";
+import RelatedProducts from "../components/RelatedProducts";
 import { toast } from "react-toastify";
+import axios from "axios";
+// import ProductItem from "../components/ProductItem";
 
 const Product = () => {
+  const { id } = useParams();
   const { productId } = useParams();
   const { products, currency, addToCart } = useContext(ShopContext);
   const [productData, setProductData] = useState(null);
-  const [image, setImage] = useState('');
-  const [size, setSize] = useState('');
+  const [image, setImage] = useState("");
+  const [size, setSize] = useState("");
+  // const [recommended, setRecommended] = useState([]);
+  const { backendUrl } = useContext(ShopContext);
+
+  // AI Product Recommendation
+
+  const fetchRecommended = async () => {
+    const response = await axios.get(
+      backendUrl + "/api/product/recommend/" + id,
+    );
+
+    if (response.data.success) {
+      // setRecommended(response.data.products);
+      console.log(response.data)
+    }
+  };
+
+  useEffect(() => {
+    fetchRecommended();
+  }, [id]);
 
   const fetchProductData = () => {
     const product = products.find((item) => item._id === productId);
@@ -20,14 +42,14 @@ const Product = () => {
     }
   };
   const handleAddToCart = () => {
-  if (!size) {
-    toast.error("Please select size");
-    return;
-  }
+    if (!size) {
+      toast.error("Please select size");
+      return;
+    }
 
-  addToCart(productData._id, size);
-  toast.success("Product added to cart");
-};
+    addToCart(productData._id, size);
+    toast.success("Product added to cart");
+  };
 
   useEffect(() => {
     fetchProductData();
@@ -47,7 +69,7 @@ const Product = () => {
                 src={item}
                 key={index}
                 className={`w-24 h-24 object-cover cursor-pointer border ${
-                  image === item ? 'border-orange-500' : 'border-gray-200'
+                  image === item ? "border-orange-500" : "border-gray-200"
                 }`}
                 alt={`Thumbnail ${index + 1}`}
               />
@@ -55,7 +77,11 @@ const Product = () => {
           </div>
           {/* Main Image */}
           <div className="w-full sm:w-[80%]">
-            <img src={image} className="w-full h-auto border border-gray-200" alt="Main Product" />
+            <img
+              src={image}
+              className="w-full h-auto border border-gray-200"
+              alt="Main Product"
+            />
           </div>
         </div>
 
@@ -67,7 +93,11 @@ const Product = () => {
             <img src={assets.star_icon} className="w-3.5" alt="Star" />
             <img src={assets.star_icon} className="w-3.5" alt="Star" />
             <img src={assets.star_icon} className="w-3.5" alt="Star" />
-            <img src={assets.star_dull_icon} className="w-3.5" alt="Dull Star" />
+            <img
+              src={assets.star_dull_icon}
+              className="w-3.5"
+              alt="Dull Star"
+            />
             <p className="pl-2">122</p>
           </div>
           <p className="mt-5 text-3xl font-medium">
@@ -83,7 +113,7 @@ const Product = () => {
                   onClick={() => setSize(item)}
                   key={index}
                   className={`bg-gray-100 py-2 px-4 border ${
-                    item === size ? 'border-orange-500' : ''
+                    item === size ? "border-orange-500" : ""
                   }`}
                 >
                   {item}
@@ -91,7 +121,10 @@ const Product = () => {
               ))}
             </div>
           </div>
-          <button onClick={handleAddToCart} className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700">
+          <button
+            onClick={handleAddToCart}
+            className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700"
+          >
             ADD TO CART
           </button>
           <hr className="mt-8 sm:w-4/5" />
@@ -127,6 +160,16 @@ const Product = () => {
           </p>
         </div>
       </div>
+
+      {/* AI Product Recommendation */}
+
+      {/* <h2 className="text-xl font-bold mt-10">Recommended Products</h2>
+
+      <div className="grid grid-cols-4 gap-4">
+        {recommended.map((item, index) => (
+          <ProductItem key={index} {...item} />
+        ))}
+      </div> */}
 
       {/* Related Products Section */}
       <RelatedProducts

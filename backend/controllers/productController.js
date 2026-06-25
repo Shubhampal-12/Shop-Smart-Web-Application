@@ -74,6 +74,33 @@ const addProduct = async (req, res) => {
     }
 }
 
+// AI Product Recommendation
+
+const getRecommendedProducts = async (req, res) => {
+  try {
+
+    const { productId } = req.params;
+
+    const product = await productModel.findById(productId);
+
+    const recommended = await productModel.find({
+      category: product.category,
+      _id: { $ne: productId }
+    }).limit(4);
+
+    res.json({
+      success: true,
+      products: recommended
+    });
+
+  } catch (error) {
+    res.json({
+      success: false,
+      message: error.message
+    });
+  }
+};
+
 // function for list product
 const listProducts = async (req, res) => {
     try{
@@ -111,4 +138,4 @@ const singleProduct = async (req, res) => {
     }
 }
 
-export { listProducts, addProduct, removeProduct, singleProduct }
+export { listProducts, addProduct, removeProduct, singleProduct , getRecommendedProducts}

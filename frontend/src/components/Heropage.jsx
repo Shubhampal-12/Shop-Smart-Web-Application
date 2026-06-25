@@ -10,7 +10,7 @@ import tend3 from "../assets/tend3.jpg";
 import tend4 from "../assets/tend4.jpg";
 import tend5 from "../assets/tend5.jpg";
 
-import Navbar from "./Navbar";
+import Navbar from "./NavBar";
 
 const team = [
   { name: "Ava Sinclair", role: "Creative Director", img: tend2 },
